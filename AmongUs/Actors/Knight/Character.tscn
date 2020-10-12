@@ -91,7 +91,7 @@ tracks/0/keys = {
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 5.74042, 5.20713 )
 
-[node name="Knight" type="KinematicBody2D"]
+[node name="Character" type="KinematicBody2D"]
 scale = Vector2( 5, 5 )
 script = SubResource( 1 )
 
