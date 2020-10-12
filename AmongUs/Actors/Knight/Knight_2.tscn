@@ -1,10 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/player.png" type="Texture" id=2]
-[ext_resource path="res://Images/LightSprite.png" type="Texture" id=3]
-[ext_resource path="res://Scenes/LightMask.tscn" type="PackedScene" id=4]
 
-[sub_resource type="GDScript" id=6]
+[sub_resource type="GDScript" id=1]
 script/source = "extends KinematicBody2D
 
 const ACCELERATION = 1000
@@ -42,7 +40,7 @@ func control_loop(delta):
 	move_and_collide(velocity * delta)
 "
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=2]
 length = 0.4
 loop = true
 tracks/0/type = "value"
@@ -58,7 +56,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=3]
 length = 0.1
 loop = true
 tracks/0/type = "value"
@@ -74,7 +72,7 @@ tracks/0/keys = {
 "values": [ 8 ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=4]
 length = 0.5
 loop = true
 tracks/0/type = "value"
@@ -95,16 +93,16 @@ extents = Vector2( 5.74042, 5.20713 )
 
 [node name="Knight" type="KinematicBody2D"]
 scale = Vector2( 5, 5 )
-script = SubResource( 6 )
+script = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
 hframes = 9
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Idle = SubResource( 7 )
-anims/Jump = SubResource( 8 )
-anims/Walk = SubResource( 9 )
+anims/Idle = SubResource( 2 )
+anims/Jump = SubResource( 3 )
+anims/Walk = SubResource( 4 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.628319, 5.0888 )
@@ -124,19 +122,3 @@ editor_draw_drag_margin = true
 __meta__ = {
 "_edit_lock_": true
 }
-
-[node name="Light" type="Light2D" parent="."]
-position = Vector2( -0.641621, 0.916584 )
-scale = Vector2( 1.47782, 1.45829 )
-texture = ExtResource( 3 )
-texture_scale = 0.65
-energy = 0.77
-shadow_enabled = true
-__meta__ = {
-"_edit_lock_": true
-}
-
-[node name="LightMask" parent="." instance=ExtResource( 4 )]
-position = Vector2( 1.18689, 1.5574 )
-scale = Vector2( 3.66517, 4.09301 )
-texture_scale = 0.35
