@@ -1,0 +1,124 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/player.png" type="Texture" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends KinematicBody2D
+
+const ACCELERATION = 1000
+const MAX_SPEED = 400
+const FRICTION = 1000
+
+var velocity = Vector2.ZERO
+var inputVector = Vector2.ZERO
+var isMoving = false
+var direction = \"down\"
+
+onready var animationPlayer = $AnimationPlayer
+onready var sprite = $Sprite
+
+func _physics_process(delta):
+	control_loop(delta)
+
+func control_loop(delta):
+	inputVector.x = Input.get_action_strength(\"ui_right\") - Input.get_action_strength(\"ui_left\")
+	inputVector.y = Input.get_action_strength(\"ui_down\") - Input.get_action_strength(\"ui_up\")
+	inputVector = inputVector.normalized()
+
+	if inputVector != Vector2.ZERO:
+		velocity = inputVector * MAX_SPEED
+		animationPlayer.play(\"Walk\")
+		if Input.is_action_pressed(\"ui_right\"):
+			sprite.flip_h = false
+		if Input.is_action_pressed(\"ui_left\"):
+			sprite.flip_h = true
+		
+	else:
+		velocity = Vector2.ZERO
+		animationPlayer.play(\"Idle\")
+		
+	move_and_collide(velocity * delta)
+"
+
+[sub_resource type="Animation" id=2]
+length = 0.4
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3 ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.1
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 8 ]
+}
+
+[sub_resource type="Animation" id=4]
+length = 0.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 4, 5, 6, 7 ]
+}
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 5.74042, 5.20713 )
+
+[node name="Character" type="KinematicBody2D"]
+scale = Vector2( 5, 5 )
+script = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+hframes = 9
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Idle = SubResource( 2 )
+anims/Jump = SubResource( 3 )
+anims/Walk = SubResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.628319, 5.0888 )
+shape = SubResource( 5 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = true
+smoothing_speed = 9.0
+drag_margin_left = 0.07
+drag_margin_top = 0.07
+drag_margin_right = 0.07
+drag_margin_bottom = 0.12
+editor_draw_drag_margin = true
+__meta__ = {
+"_edit_lock_": true
+}
