@@ -1,0 +1,14 @@
+[gd_scene format=2]
+
+[node name="Camera2D" type="Camera2D"]
+current = true
+zoom = Vector2( 0.5, 0.5 )
+limit_left = 0
+limit_top = 0
+limit_right = 960
+limit_bottom = 720
+drag_margin_v_enabled = true
+drag_margin_top = 0.5
+drag_margin_bottom = 0.28
+editor_draw_limits = true
+editor_draw_drag_margin = true

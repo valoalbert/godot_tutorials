@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Actors/Player/PlayerScript.gd" type="Script" id=1]
 [ext_resource path="res://Assets/player.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Taiga/Background.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Taiga/Middleground.png" type="Texture" id=4]
 
 [sub_resource type="Animation" id=1]
 length = 0.4
@@ -71,3 +73,32 @@ anims/Walk = SubResource( 3 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.628319, 5.0888 )
 shape = SubResource( 4 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.4, 0.4 )
+limit_left = 1
+editor_draw_limits = true
+editor_draw_drag_margin = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Camera2D"]
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Camera2D/ParallaxBackground"]
+motion_scale = Vector2( 0.1, 0 )
+motion_mirroring = Vector2( 768, 0 )
+
+[node name="Sprite" type="Sprite" parent="Camera2D/ParallaxBackground/ParallaxLayer"]
+position = Vector2( 2.55896, -227.752 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="Camera2D/ParallaxBackground"]
+motion_scale = Vector2( 0.4, 0 )
+motion_mirroring = Vector2( 768, 0 )
+
+[node name="Sprite" type="Sprite" parent="Camera2D/ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 2.55902, -281.492 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 4 )
+centered = false

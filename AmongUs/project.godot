@@ -21,5 +21,6 @@ config/icon="res://icon.png"
 
 [rendering]
 
+quality/driver/driver_name="GLES2"
 environment/default_clear_color=Color( 0.027451, 0.0117647, 0.0117647, 1 )
 environment/default_environment="res://default_env.tres"
